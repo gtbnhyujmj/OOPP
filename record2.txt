@@ -1,0 +1,18 @@
+class clothes():
+    def color(self):
+        self.color(color)
+
+
+class Clothes:
+    def set_color(self, color):  # 這裡的 color 是「參數」，也是區域變數
+        self.color = color       # self.color 是「物件的屬性」
+        
+🔸 self.color(color) 是什麼意思？
+
+這一行的意思是：
+
+把變數 color 的值指定給物件的 color 屬性（self.color）
+
+color（括號裡的）是「區域變數」：它只在 set_color 這個方法內有效。
+
+self.color 是「屬性」：它屬於這個物件（object），可以在其他方法中使用。

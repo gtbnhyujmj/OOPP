@@ -1,0 +1,136 @@
+🧠 Python 類別重點總複習（for 上課完結篇）
+① 類別（Class）
+定義模板，用來建立多個有相同行為的物件。
+
+python
+複製
+編輯
+class Clothes:
+    def wear(self):
+        print("穿上衣服")
+🔹 關鍵詞：
+
+class
+
+self：代表「物件自己本身」
+
+__init__()：建構子，自動執行，用來初始化
+
+python
+複製
+編輯
+def __init__(self, color):
+    self.color = color
+② 私有化（封裝 / private）
+用雙底線 __變數名 表示「不想被外部隨便改的變數」。
+
+python
+複製
+編輯
+class Bank:
+    def __init__(self):
+        self.__balance = 1000  # 私有化
+
+    def get_balance(self):
+        return self.__balance
+🔹 關鍵觀念：
+
+__變數 會被 Python 自動改名成 _類別__變數
+
+可以用 super() 或設計 getter/setter 存取
+
+🧠 像「銀行帳戶密碼」藏起來，只能透過對的方法來改。
+
+③ 繼承（Inheritance）
+讓子類別「借用」父類別的方法或屬性。
+
+python
+複製
+編輯
+class Father:
+    def talk(self):
+        print("我是爸爸")
+
+class Son(Father):
+    def play(self):
+        print("我是兒子")
+🔹 好處：重複的東西不用再寫一遍！
+
+④ 複寫 / 覆寫（Override）
+子類別如果定義了同名方法，會「覆蓋」父類別的版本。
+
+python
+複製
+編輯
+class Father:
+    def talk(self):
+        print("爸爸說話")
+
+class Son(Father):
+    def talk(self):
+        print("兒子說話")  # ✅ 覆寫了爸爸
+🔹 Python 會優先執行子類別自己的方法。
+
+🧠 像「特別法優先適用」，自己寫了就不再用爸爸的。
+
+⑤ super() 函數
+讓子類別去呼叫「父類別的版本」。
+
+python
+複製
+編輯
+class Son(Father):
+    def __init__(self):
+        super().__init__()  # ✅ 呼叫爸爸的建構子
+🔹 多重繼承中非常重要 → 順著 MRO 執行
+
+✅ 總複習表（超壓縮）
+主題	關鍵語法	重點說明
+類別	class A:	建立物件模板
+建構子	__init__	建立時自動執行
+私有變數	__var	不讓外部直接用
+繼承	class B(A)	子類別繼承父類別
+覆寫	子類方法同名	子類優先
+super()	super().method()	呼叫爸爸的版本
+
+
+🧬 多層繼承（Multilevel Inheritance）
+Grandfather（阿公）有一筆遺產（方法或屬性）
+Father（爸爸）繼承了阿公的遺產
+Son（兒子）又繼承了爸爸的
+
+那現在：
+
+兒子可以直接用爸爸的功能 ✅
+兒子也可以直接用阿公的功能 ✅（因為爸爸幫他傳下來了）
+
+
+為什麼要教「多層繼承」？
+現實情況下，物件會有很多代（像動物、員工等系統）
+
+想讓功能一層一層傳下去（例如公司階級、學校系統）
+
+MRO（方法解析順序）
+使用 super() 呼叫上一層建構子
+
+ 總結一段話記住它：
+多層繼承就是「一代傳一代」，兒子自動繼承爸爸、阿公所有的功能，
+只要使用 super() 並配合好 MRO 順序，就能安全繼承所有能力。
+
+
+🧬 Python 類別繼承模式對照表
+模式	說明	類比	語法結構	方法查找順序	備註
+單一繼承	一個子類別繼承一個父類別	爸爸 → 兒子	class B(A):	B → A → object	最單純、最常見
+多層繼承	一層繼承一層，傳好幾代	阿公 → 爸爸 → 兒子	class C(B): class B(A):	C → B → A → object	兒子可直接用阿公功能
+多重繼承	同時繼承多個父類別	爸爸 + 媽媽 → 小孩	class C(A, B):	C → A → B → ...	易產生衝突，要懂 MRO
+
+
+
+✅ 補充知識點
+專有名詞	解釋
+MRO（方法解析順序）	Python 用來解決多重繼承衝突的機制，使用 C.__mro__ 查看順序
+super()	順著 MRO 去呼叫上一層的建構子或方法
+object	所有類別的最終祖先
+
+🔚 一句話總結
+單一繼承最穩，多層繼承傳代功能，多重繼承超靈活但要懂 MRO 和 super()

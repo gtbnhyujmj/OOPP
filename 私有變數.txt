@@ -1,0 +1,45 @@
+ 然後來解釋重點：self.__name = name 是不是「不可改的」？
+❗老師說「不可改」，這不完全正確，更準確的說法是：
+__name 是一個私有變數（private variable），Python 會幫你「改名字」來隱藏這個變數，讓你不容易從外部存取或修改，但不是完全不能改。
+
+因為 Python 自動把 __name 改名成 _Clothes__name，這是所謂的 Name Mangling（命名遮蔽）。
+
+如果你真的不想讓人改變這個值，可以加上 getter，但不給 setter：
+class Clothes:
+    def __init__(self, name):
+        self.__name = name
+
+    def get_name(self):
+        return self.__name
+
+
+🔐 封裝（encapsulation）是什麼？
+➡️ 就是把東西藏起來，不讓外人亂碰
+
+比方說你有一個衣服物件，它有一個名字 __name，你不希望其他人隨便改，那就「封裝」起來。
+
+🌀 命名遮蔽（name mangling）是什麼？
+➡️ Python 偷偷把你寫的 __name 改成 _Clothes__name（在背後偷偷加東西），讓你不小心改不到。
+
+這叫做 遮蔽（mangling）——其實你還是可以找到它，但不容易。
+
+✋ 總結一句話
+Python 的 __變數名 是一種「保護自己，不讓別人隨便動」的設計，這就是封裝，用的是命名遮蔽的小技巧。
+✅ 封裝：讓資料「安全」，只能透過你設計的方式來改
+
+ 2. 命名遮蔽（Name Mangling）是什麼？
+Python 不是真的鎖起來，而是「偷偷改名」來讓你不小心找不到那個變數。
+所以你老師說的「封裝是讓外面不能隨便改」，是對的；
+但 Python 用的方式是「遮蔽」，不是真的鎖死，只是讓你不小心找不到。
+
+你寫：
+
+python
+複製
+編輯
+self.__name = "T-shirt"
+就像是：
+
+把衣服的名字「藏在小抽屜」，只有衣服自己知道怎麼開。
+
+別人想開，就得偷偷知道那個抽屜的全名 _Clothes__name，才打得開。
